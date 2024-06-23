@@ -11,11 +11,72 @@ O MS vai registrar no banco de dados SQLite (exclusivo deste MS) e retornar a co
 
 Também disponibiliza a rota /reservas-usuario, via REST - GET. Ao chamar esta rota, basta informar o id do usuario e será retornada em formato JSON uma lista de todas as reservas realizadas em nome deste usuario.
 
-### Chamada REST:
+## Criação de Reserva
+http://localhost:5001/reserva
 
+### Chamada REST:
+curl -X 'POST' \
+  'http://localhost:5001/reserva' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'canoa=14' \
+  -F 'data=01/07/2024' \
+  -F 'usuario=21999999999'
 
 ### Resposta JSON:
+{
+  "canoa": 14,
+  "data": "01/07/2024",
+  "id-reserva": 3,
+  "usuario": 21999999999
+}
 
+ access-control-allow-origin: http://localhost:5001 
+ connection: close 
+ content-length: 70 
+ content-type: application/json 
+ date: Sun,23 Jun 2024 00:37:37 GMT 
+ server: Werkzeug/3.0.3 Python/3.12.4 
+ vary: Origin 
+
+## Consulta de Reserva
+http://localhost:5001/reservas-usuario?usuario=21999999999
+
+### Chamada REST:
+curl -X 'GET' \
+  'http://localhost:5001/reservas-usuario?usuario=21999999999' \
+  -H 'accept: application/json'
+
+### Resposta JSON:
+{
+  "reservas": [
+    {
+      "canoa": 1,
+      "data": "01/05/2024",
+      "id-reserva": 1,
+      "usuario": 21999999999
+    },
+    {
+      "canoa": 20,
+      "data": "01/07/2024",
+      "id-reserva": 2,
+      "usuario": 21999999999
+    },
+    {
+      "canoa": 14,
+      "data": "01/07/2024",
+      "id-reserva": 3,
+      "usuario": 21999999999
+    }
+  ]
+}
+
+ access-control-allow-origin: * 
+ connection: close 
+ content-length: 224 
+ content-type: application/json 
+ date: Sun,23 Jun 2024 00:45:27 GMT 
+ server: Werkzeug/3.0.3 Python/3.12.4 
 
 
 ### Criação do banco de dados: apenas 1 tabela!
