@@ -105,13 +105,13 @@ Navegue até o diretório que contém o Dockerfile e o requirements.txt no termi
 Execute **como administrador** o seguinte comando para construir a imagem Docker:
 
 ```
-$ docker build -t rest-api .
+docker build -t ms-reservas .
 ```
 
 Uma vez criada a imagem, para executar o container basta executar, **como administrador**, seguinte o comando:
 
 ```
-$ docker run -p 5000:5000 rest-api
+docker run -d -p 5001:5001 ms-reservas
 ```
 
-Uma vez executando, para acessar a API, basta abrir o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador.
+Uma vez executando, para acessar a API, basta abrir o [http://localhost:5001/]no navegador.
