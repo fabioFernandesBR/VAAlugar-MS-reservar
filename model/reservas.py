@@ -10,7 +10,7 @@ class Reserva(Base):
 
     id_reserva = Column(Integer, primary_key = True)
     id_canoa = Column(Integer)
-    id_usuario = Column(Integer)
+    id_usuario = Column(String(256))
     data = Column(String(50))
     
 

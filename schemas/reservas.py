@@ -10,7 +10,7 @@ class SchemaCriacaoReserva(BaseModel):
 
     Método POST
     """
-    usuario: int = 21999999999
+    usuario: str = "21999999999"
     canoa: int = 1
     data: str = "01/05/2024" 
 
@@ -21,14 +21,14 @@ class SchemaBuscaReservaPorUsuario(BaseModel):
 
     Método GET
     """
-    usuario: int = 21999999999 #Por padrão, sugiro 21999999999    
+    usuario: str = "21999999999"    
 
 class SchemaVisualizacaoReserva(BaseModel):
     """ Define como uma nova reserva recém criada deve ser representada, 
     da API para o usuário.
     """
     id_reserva: int = 1
-    usuario: int = 21999999999
+    usuario: str = "21999999999"
     canoa: int = 1
     data: str = "01/05/2024"
     

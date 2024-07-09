@@ -21,14 +21,14 @@ curl -X 'POST' \
   -H 'Content-Type: multipart/form-data' \
   -F 'canoa=14' \
   -F 'data=01/07/2024' \
-  -F 'usuario=21999999999'
+  -F 'usuario="21999999999"'
 
 ### Resposta JSON:
 {
   "canoa": 14,
   "data": "01/07/2024",
   "id-reserva": 3,
-  "usuario": 21999999999
+  "usuario": "21999999999"
 }
 
  access-control-allow-origin: http://localhost:5001 
@@ -83,9 +83,9 @@ curl -X 'GET' \
 CREATE TABLE reservas (
     id_reserva INTEGER PRIMARY KEY,
     id_canoa   INTEGER NOT NULL,
-    id_usuario INTEGER NOT NULL,
-    data       STRING NOT NULL
-);./env
+    id_usuario TEXT    NOT NULL,
+    data       TEXT    NOT NULL
+);
 
 
 Para instalar:
