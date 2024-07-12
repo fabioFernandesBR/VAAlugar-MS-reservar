@@ -1,7 +1,7 @@
 # VAAlugar-MS-reservar
 Repositório do projeto de Microsserviço (MS) que executa reserva de canoa.
 
-ATENÇÃO: Docker configurado para rodar na porta 5001.
+ATENÇÃO: Docker configurado para rodar na porta 5003.
 
 ## O que este microsserviço faz
 Este MS gerencia as reservas.
@@ -12,7 +12,7 @@ O MS vai registrar no banco de dados SQLite (exclusivo deste MS) e retornar a co
 Também disponibiliza a rota /reservas-usuario, via REST - GET. Ao chamar esta rota, basta informar o id do usuario e será retornada em formato JSON uma lista de todas as reservas realizadas em nome deste usuario.
 
 ## Criação de Reserva
-http://localhost:5001/reserva
+http://localhost:5003/reserva
 
 ### Chamada REST:
 curl -X 'POST' \
@@ -31,7 +31,7 @@ curl -X 'POST' \
   "usuario": "21999999999"
 }
 
- access-control-allow-origin: http://localhost:5001 
+ access-control-allow-origin: http://localhost:5003 
  connection: close 
  content-length: 70 
  content-type: application/json 
@@ -40,11 +40,11 @@ curl -X 'POST' \
  vary: Origin 
 
 ## Consulta de Reserva
-http://localhost:5001/reservas-usuario?usuario=21999999999
+http://localhost:5003/reservas-usuario?usuario=21999999999
 
 ### Chamada REST:
 curl -X 'GET' \
-  'http://localhost:5001/reservas-usuario?usuario=21999999999' \
+  'http://localhost:5003/reservas-usuario?usuario=21999999999' \
   -H 'accept: application/json'
 
 ### Resposta JSON:
@@ -94,24 +94,9 @@ pip install -r requirements.txt
 Recomendo instalação em um ambiente virtual
 
 Para executar localmente, em ambiente Windows:
-flask run --host 0.0.0.0 --port 5000 --reload
+flask run --host 0.0.0.0 --port 5003 --reload
 
 
 ## Como executar através do Docker
-
-Certifique-se de ter o [Docker](https://docs.docker.com/engine/install/) instalado e em execução em sua máquina.
-
-Navegue até o diretório que contém o Dockerfile e o requirements.txt no terminal.
-Execute **como administrador** o seguinte comando para construir a imagem Docker:
-
-```
-docker build -t ms-reservas .
-```
-
-Uma vez criada a imagem, para executar o container basta executar, **como administrador**, seguinte o comando:
-
-```
-docker run -d -p 5001:5001 ms-reservas
-```
-
-Uma vez executando, para acessar a API, basta abrir o [http://localhost:5001/]no navegador.
+Como os diferentes APIs comunicam-se entre si, é necessário usar o Docker Compose. Por isso, seguir as instruções para construção do Docker-compose no link:
+https://github.com/fabioFernandesBR/VAAlugar-Docker-Compose/blob/main/README.md

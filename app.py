@@ -59,15 +59,15 @@ def cria_reserva(form: SchemaCriacaoReserva):
 
 
 
-@app.get('/reservas-usuario', tags=[consulta_reserva_tag],
+@app.post('/reservas-usuario', tags=[consulta_reserva_tag],
          responses={"200": SchemaListagemReservas, "404": SchemaMensagemErro})
-def get_reservas_por_usuario(query: SchemaBuscaReservaPorUsuario):
+def get_reservas_por_usuario(body: SchemaBuscaReservaPorUsuario):
     """
     # Faz a busca por reservas a partir do id do usuario
 
     # Retorna uma representação das reservas feitas por um determinado usuario.
     """
-    usuario = query.usuario
+    usuario = body.usuario
     logger.debug(f"Coletando dados sobre reservas #{usuario}")
     # criando conexão com a base
     session = Session()
