@@ -83,4 +83,6 @@ def get_reservas_por_usuario(query: SchemaBuscaReservaPorUsuario):
         logger.debug(f"reservas encontradas: '{usuario}'")
         # retorna a representação de produto
         return apresenta_reservas(reservas), 200
-    
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
