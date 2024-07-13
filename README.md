@@ -1,29 +1,30 @@
 # VAAlugar-MS-reservar
-Repositório do projeto de Microsserviço (MS) que executa reserva de canoa.
+Repositório do projeto VA'Alugar em Microsserviços (MS) para a gestão das reservas. Para mais informações sobre este projeto, consultar o readme do repositório Gateway: https://github.com/fabioFernandesBR/VAAlugar-MS-gateway/blob/main/README.md.
 
-ATENÇÃO: Docker configurado para rodar na porta 5003.
+As funcionalidades disponíveis são Criação de Reservas, na rota /reserva, e Consulta de Reservas, na rota /reserva-usuario.
 
-## O que este microsserviço faz
-Este MS gerencia as reservas.
+### ATENÇÃO: rodar na porta 5003.
 
-Disponibiliza uma rota /reservar, para comunicação via REST, usando o método POST. Ao chamar esta rota, informar via JSON: id da canoa, id do usuario e uma data.
-O MS vai registrar no banco de dados SQLite (exclusivo deste MS) e retornar a confirmação da reserva ou algum erro.
+## Esquema de Fluxo de informações:
+Disponibiliza as seguintes rota para comunicação via REST:
 
-Também disponibiliza a rota /reservas-usuario, via REST - GET. Ao chamar esta rota, basta informar o id do usuario e será retornada em formato JSON uma lista de todas as reservas realizadas em nome deste usuario.
+### /reserva
+Passar um dicionário com o seguinte padrão:
+{
+  "canoa": int,
+  "data": "string",
+  "usuario": "string"
+}
 
-## Criação de Reserva
-http://localhost:5003/reserva
+Exemplo:
 
-### Chamada REST:
-curl -X 'POST' \
-  'http://localhost:5001/reserva' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'canoa=14' \
-  -F 'data=01/07/2024' \
-  -F 'usuario="21999999999"'
+{
+  "canoa": 14,
+  "data": "01/07/2024",
+  "usuario": "21999999999"
+}
 
-### Resposta JSON:
+retorna:
 {
   "canoa": 14,
   "data": "01/07/2024",
@@ -31,55 +32,84 @@ curl -X 'POST' \
   "usuario": "21999999999"
 }
 
- access-control-allow-origin: http://localhost:5003 
- connection: close 
- content-length: 70 
- content-type: application/json 
- date: Sun,23 Jun 2024 00:37:37 GMT 
- server: Werkzeug/3.0.3 Python/3.12.4 
- vary: Origin 
+### /reservas-usuario
+Passar um dicionário com o seguinte padrão:
+{
+  "usuario": "string"
+}
 
-## Consulta de Reserva
-http://localhost:5003/reservas-usuario?usuario=21999999999
+Exemplo:
+{
+  "usuario": "string"
+}
 
-### Chamada REST:
-curl -X 'GET' \
-  'http://localhost:5003/reservas-usuario?usuario=21999999999' \
-  -H 'accept: application/json'
-
-### Resposta JSON:
+retorna JSON:
 {
   "reservas": [
     {
       "canoa": 1,
       "data": "01/05/2024",
       "id-reserva": 1,
-      "usuario": 21999999999
+      "usuario": "21999999999"
     },
     {
       "canoa": 20,
       "data": "01/07/2024",
       "id-reserva": 2,
-      "usuario": 21999999999
+      "usuario": "21999999999"
     },
     {
-      "canoa": 14,
-      "data": "01/07/2024",
+      "canoa": 1,
+      "data": "01/05/2025",
       "id-reserva": 3,
-      "usuario": 21999999999
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 4,
+      "data": "01/05/2025",
+      "id-reserva": 4,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 4,
+      "data": "01/05/2025",
+      "id-reserva": 5,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 4,
+      "data": "01/05/2025",
+      "id-reserva": 6,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 1,
+      "data": "14/07/2024",
+      "id-reserva": 17,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 1,
+      "data": "13/07/2024",
+      "id-reserva": 19,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 1,
+      "data": "01/05/2025",
+      "id-reserva": 22,
+      "usuario": "21999999999"
+    },
+    {
+      "canoa": 1,
+      "data": "01/05/2025",
+      "id-reserva": 23,
+      "usuario": "21999999999"
     }
   ]
 }
 
- access-control-allow-origin: * 
- connection: close 
- content-length: 224 
- content-type: application/json 
- date: Sun,23 Jun 2024 00:45:27 GMT 
- server: Werkzeug/3.0.3 Python/3.12.4 
-
-
-### Criação do banco de dados: apenas 1 tabela!
+## Criação do banco de dados: apenas 1 tabela!
 CREATE TABLE reservas (
     id_reserva INTEGER PRIMARY KEY,
     id_canoa   INTEGER NOT NULL,
